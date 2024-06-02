@@ -23,6 +23,8 @@
       doom-themes
       doom-modeline
       elfeed
+      neotree
+      magit
     ]);
   };
 }

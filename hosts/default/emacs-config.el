@@ -1,7 +1,4 @@
-;; Top level variables
-(setq my-org-roam-directory "~/Desktop/orgfiles")
-
-;; Package management
+;; package management
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                           ("org" . "https://orgmode.org/elpa/")
@@ -16,11 +13,26 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; load environment variables from a file
+(defun load-env-vars (file)
+  "Load environment variables from a file."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (dolist (line (split-string (buffer-string) "\n" t))
+      (let ((key-value (split-string line "=" t)))
+        (setenv (car key-value) (cadr key-value))))))
+
+;; use .env
+(load-env-vars "~/Desktop/nixos/hosts/default/.env")
+(setq local-directory (getenv "LOCAL_DIRECTORY"))
+(setq remote-directory (getenv "REMOTE_DIRECTORY"))
+
+;; initialize
+(setq my-org-roam-directory local-directory)
+(setq browse-url-browser-function 'eww-browse-url) ; set eww as the default browser
+
 ;; default window size
-(add-to-list 'default-frame-alist '(width . 190))
-(add-to-list 'default-frame-alist '(height . 45))
-(add-to-list 'initial-frame-alist '(top . 40))
-(add-to-list 'initial-frame-alist '(left . 40))
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; theme and ui
 (use-package doom-themes
@@ -28,6 +40,11 @@
   (setq doom-themes-enable-bold t
     doom-themes-enable-italic t)
   (load-theme 'doom-moonlight t))
+
+;; transparent background
+(set-frame-parameter nil 'alpha-background 75)
+(add-to-list 'default-frame-alist '(alpha-background . 75))
+(set-background-color "#1c1c24") 
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -55,7 +72,7 @@
 (use-package company
   :init (global-company-mode)
   :config
-  (setq company-idle-delay 0.8
+  (setq company-idle-delay 0.2
     company-minimum-prefix-length 1))
 
 (use-package company-math
@@ -89,6 +106,13 @@
   :config
   (setq org-startup-folded 'showall))
 
+;; Org-bullets
+(use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode)
+  :config
+  (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "•" "◇" "◆" "▶")))
+
 ;; Org-agenda files
 (setq org-agenda-files (list (concat my-org-roam-directory "/agenda")))
 
@@ -101,41 +125,66 @@
   (setq org-roam-dailies-directory "daily/")
   (org-roam-db-autosync-mode))
 
-;; open shell at bottom
-(defun open-terminal-split-bottom ()
-  "open a new terminal split at the bottom."
-  (interactive)
-  (let ((height (/ (window-total-height) 6))) ; shell height
-    (split-window-below (- height)))
-  (other-window 1)
-  (ansi-term (getenv "SHELL"))) ; Open ansi-term with the default shell
+;; tree
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-smart-open t))
 
 ;; IDE layout
-;; TODO - replace dired with a better explorer for sidebar tree navigation
 (defun ide-layout ()
   "Simple IDE layout."
   (interactive)
-  (let ((width (/ (window-total-width) 6)))
-    (split-window-horizontally width))
-  (let ((dired-buffer (dired default-directory)))
-    (dired-hide-details-mode 1)
-    (setq buffer-read-only nil))
+
+  ;; launch file tree
+  (neotree-show)
+
+  ;; navigate to main window then split to open terminal at the bottom
   (other-window 1)
-  (open-terminal-split-bottom)
+  (split-window-vertically (- (/ (window-total-height) 5)))
+  (other-window 1)
+  (ansi-term (getenv "SHELL"))
+
+  ;; return to main window
   (other-window 2))
 
 ;; RSS feeds
+;; TODO - learn/map keybinds
 (use-package elfeed
   :ensure t
   :config
   (setq elfeed-feeds
-    '("https://hnrss.org/frontpage")))
+    '(("https://xkcd.com/rss.xml" xkcd)
+      ("https://hnrss.org/frontpage" hackernews)
+      ("https://rss.arxiv.org/rss/q-fin" arxiv q-fin)
+     )))
 
 (defun elfeed-update-and-show ()
   "Update elfeed and open the elfeed buffer."
   (interactive)
   (elfeed-update)
   (elfeed))
+
+(general-define-key
+ :keymaps 'elfeed-search-mode-map
+ :states '(normal motion)
+ "r" 'elfeed-update
+ "RET" 'elfeed-search-show-entry)
+
+;; magit (git integration)
+(use-package magit
+  :ensure t
+  :init
+  ;; Load magit at startup for faster access
+  (add-hook 'after-init-hook 'magit-mode))
+
+;; Use tramp to remotely connect to server
+(defun connect-to-remote-computer ()
+  (interactive)
+  (find-file remote-directory)
+  )
+
+;; TODO - programming language support (highlighting, etc)
 
 ;; Keybindings with general.el and which-key
 (use-package general
@@ -145,6 +194,9 @@
     :keymaps 'override
     :prefix "SPC"
 
+    ;; connect to remote computer
+    "c" '(connect-to-remote-computer :which-key "connect (TRAMP)")
+    
     ;; emacs
     "q" '(save-buffers-kill-emacs :which-key "quit emacs")
     "e" '(eval-buffer :which-key "eval buffer")
@@ -153,6 +205,9 @@
     "ff" '(find-file :which-key "find file")
     "ru" '(elfeed-update-and-show :which-key "update and show elfeed")
 
+    ;; magit
+    "ms" '(magit-status :which-key "magit status")
+    
     ;; layouts
     "i" '(ide-layout :which-key "IDE layout")
 
@@ -261,6 +316,7 @@
   "q" '(lambda () (interactive) (kill-this-buffer) (delete-other-windows)))
 
 ;; environment variables from shell
+;; NOTE - I get a warning about this taking a long time
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
   :config

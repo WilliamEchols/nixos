@@ -159,9 +159,8 @@ in
     go # golang
     go-ethereum
     github-desktop
-    chromium # required for github-desktop auth
-    gnome3.gnome-keyring
-    git-lfs
+    imagemagick # emacs image-dired
+    ispell # emacs flyspell-mode for spell checking
   ];
 
   # required for github-desktop auth
