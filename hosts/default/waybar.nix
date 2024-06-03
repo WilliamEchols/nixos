@@ -231,6 +231,7 @@
           "states" = {
             "warning" = 85;
           };
+          "on-click" = "kitty gtop";
         };
         "cpu" = {
           "interval" = 1;

@@ -15,7 +15,6 @@
 
 ;; load environment variables from a file
 (defun load-env-vars (file)
-  "Load environment variables from a file."
   (with-temp-buffer
     (insert-file-contents file)
     (dolist (line (split-string (buffer-string) "\n" t))
@@ -42,9 +41,9 @@
   (load-theme 'doom-moonlight t))
 
 ;; transparent background
-(set-frame-parameter nil 'alpha-background 75)
-(add-to-list 'default-frame-alist '(alpha-background . 75))
-(set-background-color "#1c1c24") 
+;(set-frame-parameter nil 'alpha-background 75)
+;(add-to-list 'default-frame-alist '(alpha-background . 75))
+;(set-background-color "#1c1c24") 
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -157,6 +156,8 @@
     '(("https://xkcd.com/rss.xml" xkcd)
       ("https://hnrss.org/frontpage" hackernews)
       ("https://rss.arxiv.org/rss/q-fin" arxiv q-fin)
+      ("https://stephango.com/feed.xml" kepano)
+      ("https://planet.emacslife.com/atom.xml" emacs)
      )))
 
 (defun elfeed-update-and-show ()
@@ -170,6 +171,12 @@
  :states '(normal motion)
  "r" 'elfeed-update
  "RET" 'elfeed-search-show-entry)
+
+;; eww keybinds
+(general-define-key
+ :keymaps 'eww-mode-map
+ :states 'normal
+ "q" 'eww-back-url)
 
 ;; magit (git integration)
 (use-package magit
@@ -234,6 +241,7 @@
     ;; roam
     "n f" '(org-roam-node-find :which-key "roam find")
     "n i" '(org-roam-node-insert :which-key "roam insert")
+    "n r" '(org-roam-node-random :which-key "random node")
     "n d N" '(org-roam-dailies-capture-today :which-key "capture today")
     "n d Y" '(org-roam-dailies-capture-yesterday :which-key "capture yesterday")
     "n d T" '(org-roam-dailies-capture-tomorrow :which-key "capture tomorrow")

@@ -54,4 +54,24 @@ Nix flake files are located at `~/Desktop/nixos` and system-specific files are l
 
 After making modifications, you can test the config with `nixtest` (run configuration but don't save to boot menu) or use the config with `nixit` (run conguration and save to boot menu).
 
-In particularly, modifications to emacs require `nixtest` or `nixit` before updating the emacs elisp config. 
+In particularly, modifications to emacs require `nixtest` or `nixit` before updating the emacs elisp config.
+
+# Recommended system file tree from `~/Desktop/`
+
+```
+.
+├── files
+│   ├── dev
+│   └── test.txt
+├── nixos
+│   ├── flake.lock
+│   ├── flake.nix
+│   ├── hosts
+│   ├── #README.md#
+│   ├── README.md
+│   └── setup_nixos.sh
+├── orgfiles
+└── orgfiles-repo
+```
+
+In this setup, `files` contains misc/regular files, `nixos` contains this github repo, and `orgfiles` contains the expected path for emacs org files. 

@@ -132,9 +132,6 @@ in
     };
   };
 
-  # Install firefox.
-  # programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -145,8 +142,10 @@ in
     kitty # terminal
     neofetch # terminal command
     tree # terminal command
+    gtop # terminal monitoring dashboard
     pamixer # terminal volume control
     playerctl # terminal player control
+    pavucontrol # audio/sound gui
     brightnessctl # terminal brightness control
     wev # wayland event viewer (dev package to help with hyprland config)
     tor-browser # tor
@@ -161,6 +160,7 @@ in
     github-desktop
     imagemagick # emacs image-dired
     ispell # emacs flyspell-mode for spell checking
+    obsidian # canvas mode diagrams
   ];
 
   # required for github-desktop auth
