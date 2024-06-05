@@ -155,7 +155,7 @@
         ];
         "custom/launcher" = {
           "format" = "⟁";
-          "on-click" = "rofi -show drun -show-icons";
+          "on-click" = "rofi -show drun -show-icons -theme ~/Desktop/nixos/hosts/default/rofi-config.rasi";
           #"on-click" = "pkill rofi || ~/.config/rofi/launcher.sh";
           "tooltip" = false;
         };

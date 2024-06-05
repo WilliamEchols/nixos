@@ -54,9 +54,7 @@ Nix flake files are located at `~/Desktop/nixos` and system-specific files are l
 
 After making modifications, you can test the config with `nixtest` (run configuration but don't save to boot menu) or use the config with `nixit` (run conguration and save to boot menu).
 
-In particularly, modifications to emacs require `nixtest` or `nixit` before updating the emacs elisp config.
-
-# Recommended system file tree from `~/Desktop/`
+# Recommended file tree from `~/Desktop/`
 
 ```
 .
@@ -74,4 +72,14 @@ In particularly, modifications to emacs require `nixtest` or `nixit` before upda
 └── orgfiles-repo
 ```
 
-In this setup, `files` contains misc/regular files, `nixos` contains this github repo, and `orgfiles` contains the expected path for emacs org files. 
+In this setup, `files` contains misc/regular files, `nixos` contains this github repo, and `orgfiles` contains the expected path for emacs org files.
+
+# Emacs
+
+Uses elisp to configure `emacs-config.el`, loaded into `emacs.nix`. Also uses `emacs-banner.txt` as ASCII dashboard art. Before updating the NixOS config, eval-buffer can be used to test an updated config.
+
+# Hyprland (display manager)
+
+Hyprland is used as a tiling window manager. Ensure your monitor is defined in `hyprland.conf`, including relative position as well as scaling for best results.
+
+After running `nixtest`/`nixit`, hyprland can be reloaded using `hyprctl reload`.

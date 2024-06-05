@@ -4,12 +4,6 @@
 
 { config, pkgs, inputs, ... }:
 
-# Example loading python3 pip packages
-let
-  myPythonEnv = pkgs.python3.withPackages (ps: with ps; [
-    pandas
-  ]);
-in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -142,6 +136,7 @@ in
     kitty # terminal
     neofetch # terminal command
     tree # terminal command
+    fzf # termnal fuzzy finder
     gtop # terminal monitoring dashboard
     pamixer # terminal volume control
     playerctl # terminal player control
@@ -152,7 +147,6 @@ in
     texliveFull # latex compiler
     spotify
     python3 # used as 'python' or 'python3' in terminal
-    myPythonEnv
     unzip # uncompress .zip files
     ripgrep # terminal command, also used for emacs
     go # golang
@@ -161,6 +155,7 @@ in
     imagemagick # emacs image-dired
     ispell # emacs flyspell-mode for spell checking
     obsidian # canvas mode diagrams
+    zed-editor # fancy modern IDE
   ];
 
   # required for github-desktop auth

@@ -29,6 +29,17 @@
 ;; initialize
 (setq my-org-roam-directory local-directory)
 (setq browse-url-browser-function 'eww-browse-url) ; set eww as the default browser
+(add-hook 'text-mode-hook 'flyspell-mode) ; enable spell check by default
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+;; function to add word to flyspell dictionary
+(defun my-save-word ()
+  (interactive)
+  (let ((current-location (point))
+         (word (flyspell-get-word)))
+    (when (consp word)    
+      (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
+
 
 ;; default window size
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -110,7 +121,10 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :config
-  (setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "•" "◇" "◆" "▶")))
+  ;(setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "•" "◇" "◆" "▶"))
+  (setq org-bullets-bullet-list '("◆" "♠" "♣" "♦"))
+  )
+
 
 ;; Org-agenda files
 (setq org-agenda-files (list (concat my-org-roam-directory "/agenda")))
@@ -130,8 +144,16 @@
   :config
   (setq neo-smart-open t))
 
+;; bottom terminal
+(defun my-bottom-terminal ()
+  (interactive)
+  (split-window-vertically (- (/ (window-total-height) 5)))
+  (other-window 1)
+  (ansi-term (getenv "SHELL"))
+  (other-window 1))
+
 ;; IDE layout
-(defun ide-layout ()
+(defun my-ide-layout ()
   "Simple IDE layout."
   (interactive)
 
@@ -140,15 +162,12 @@
 
   ;; navigate to main window then split to open terminal at the bottom
   (other-window 1)
-  (split-window-vertically (- (/ (window-total-height) 5)))
-  (other-window 1)
-  (ansi-term (getenv "SHELL"))
-
+  (my-bottom-terminal)
+  
   ;; return to main window
-  (other-window 2))
+  (other-window 1))
 
 ;; RSS feeds
-;; TODO - learn/map keybinds
 (use-package elfeed
   :ensure t
   :config
@@ -216,7 +235,7 @@
     "ms" '(magit-status :which-key "magit status")
     
     ;; layouts
-    "i" '(ide-layout :which-key "IDE layout")
+    "i" '(my-ide-layout :which-key "IDE layout")
 
     ;; buffers
     "b" '(switch-to-buffer :which-key "switch buffer")
