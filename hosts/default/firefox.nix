@@ -29,7 +29,7 @@
         };
         DisablePocket = true;
         DisableFirefoxAccounts = true;
-        DisableAccounts = true;
+        DisableAccounts = false; # allow accounts
         DisableFirefoxScreenshots = true;
         OverrideFirstRunPage = "";
         OverridePostUpdatePage = "";

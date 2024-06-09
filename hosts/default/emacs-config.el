@@ -279,7 +279,7 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-banner-logo-title "GNU/Emacs"
+  (setq dashboard-banner-logo-title "GNU Emacs"
     dashboard-startup-banner "~/Desktop/nixos/hosts/default/emacs-banner.txt"
     dashboard-center-content t
     dashboard-set-footer nil
@@ -344,10 +344,10 @@
 
 ;; environment variables from shell
 ;; NOTE - I get a warning about this taking a long time
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :config
-  (exec-path-from-shell-initialize))
+;(use-package exec-path-from-shell
+;  :if (memq window-system '(mac ns x))
+;  :config
+;  (exec-path-from-shell-initialize))
 
 ;; update maximum file size before opening warning
 (setq large-file-warning-threshold 100000000)

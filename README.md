@@ -65,7 +65,6 @@ After making modifications, you can test the config with `nixtest` (run configur
 │   ├── flake.lock
 │   ├── flake.nix
 │   ├── hosts
-│   ├── #README.md#
 │   ├── README.md
 │   └── setup_nixos.sh
 ├── orgfiles
