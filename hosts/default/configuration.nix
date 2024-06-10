@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./bluetooth.nix
-      ./firefox.nix
       inputs.home-manager.nixosModules.default
     ];
 
@@ -157,6 +156,7 @@
     ispell # emacs flyspell-mode for spell checking
     obsidian # canvas mode diagrams
     zed-editor # fancy modern IDE
+    librewolf # privacy-respecting browser based on firefox
   ];
 
   # required for github-desktop auth

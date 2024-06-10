@@ -26,6 +26,11 @@
 (setq local-directory (getenv "LOCAL_DIRECTORY"))
 (setq remote-directory (getenv "REMOTE_DIRECTORY"))
 
+;; ERC NickServ registration
+(setq erc-nick (getenv "ERC_NICK"))
+(setq erc-user-full-name (getenv "ERC_NAME"))
+(setq erc-sasl-password (getenv "ERC_PASS"))
+
 ;; initialize
 (setq my-org-roam-directory local-directory)
 (setq browse-url-browser-function 'eww-browse-url) ; set eww as the default browser
@@ -52,9 +57,8 @@
   (load-theme 'doom-moonlight t))
 
 ;; transparent background
-;(set-frame-parameter nil 'alpha-background 75)
-;(add-to-list 'default-frame-alist '(alpha-background . 75))
-;(set-background-color "#1c1c24") 
+(set-frame-parameter nil 'alpha-background 75)
+(add-to-list 'default-frame-alist '(alpha-background . 75))
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -121,10 +125,7 @@
   :ensure t
   :hook (org-mode . org-bullets-mode)
   :config
-  ;(setq org-bullets-bullet-list '("◉" "○" "✸" "✿" "•" "◇" "◆" "▶"))
-  (setq org-bullets-bullet-list '("◆" "♠" "♣" "♦"))
-  )
-
+  (setq org-bullets-bullet-list '("◆" "♠" "♣" "♦")))
 
 ;; Org-agenda files
 (setq org-agenda-files (list (concat my-org-roam-directory "/agenda")))
@@ -207,8 +208,33 @@
 ;; Use tramp to remotely connect to server
 (defun connect-to-remote-computer ()
   (interactive)
-  (find-file remote-directory)
-  )
+  (find-file remote-directory))
+
+;; ERC (Emacs IRC Client)
+(require 'erc)
+(require 'erc-sasl)
+
+(defun erc-sasl-authenticate ()
+  "Perform SASL authentication."
+  (erc-response-eval
+   (if (and (featurep 'erc-sasl) erc-session-password)
+       (erc-server-send (format "CAP REQ :sasl")
+                        (erc-server-send (format "AUTHENTICATE PLAIN")
+                                         (erc-server-send (base64-encode-string
+                                                           (format "%s\0%s\0%s"
+                                                                   erc-session-password
+                                                                   erc-nick
+                                                                   erc-session-password))))))
+   (erc-server-send "CAP END")))
+
+(setq erc-sasl-use-sasl t)
+
+(defun my-erc-connect ()
+  (interactive)
+  (erc-tls :server "irc.libera.chat" :port 6697
+           :nick erc-nick
+           :password erc-sasl-password
+           :full-name erc-user-full-name))
 
 ;; TODO - programming language support (highlighting, etc)
 
@@ -341,13 +367,6 @@
   "l" 'image-dired-display-this
   "h" 'image-dired-thumbnail-display-external
   "q" '(lambda () (interactive) (kill-this-buffer) (delete-other-windows)))
-
-;; environment variables from shell
-;; NOTE - I get a warning about this taking a long time
-;(use-package exec-path-from-shell
-;  :if (memq window-system '(mac ns x))
-;  :config
-;  (exec-path-from-shell-initialize))
 
 ;; update maximum file size before opening warning
 (setq large-file-warning-threshold 100000000)
