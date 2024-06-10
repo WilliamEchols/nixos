@@ -368,5 +368,15 @@
   "h" 'image-dired-thumbnail-display-external
   "q" '(lambda () (interactive) (kill-this-buffer) (delete-other-windows)))
 
+(general-define-key
+  :states '(normal motion visual)
+  :keymaps 'dired-mode-map
+  "q" '(lambda () (interactive) (kill-this-buffer) (delete-other-windows)))
+
+(general-define-key
+  :states '(normal motion visual)
+  :keymaps 'image-dired-image-mode-map
+  "q" '(lambda () (interactive) (kill-this-buffer) (delete-other-windows)))
+
 ;; update maximum file size before opening warning
 (setq large-file-warning-threshold 100000000)

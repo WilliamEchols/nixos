@@ -40,9 +40,12 @@ cd nixos
 
 6. Write `~/Desktop/nixos/hosts/default.env` for emacs.
 
-Currently, emacs expects two environment variables:
+Currently, emacs expects the following environment variables:
  - `LOCAL_DIRECTORY` contains the path to the org file directory. (i.e., `~/Desktop/orgfiles`)
  - `REMOTE_DIRECTORY` contains the TRAMP route to a remote file system. (i.e., `/ssh:USER@IP#PORT:~/`)
+ - `ERC_NICK` contains the nickname to be used for the emacs IRC client
+ - `ERC_NAME` contains the full name for ERC
+ - `ERC_PASS` contains the password ERC SASL
 
 7. Sync emacs org files to `LOCAL_DIRECTORY`.
 

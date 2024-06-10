@@ -4,7 +4,7 @@
   programs.kitty = {
     enable = true;
     package = pkgs.kitty;
-    theme = "Space Gray";
+    theme = "Tokyo Night Storm";
     font.name = "JetBrains Mono";
     font.size = 12;
     settings = {

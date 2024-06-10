@@ -159,7 +159,7 @@
     librewolf # privacy-respecting browser based on firefox
   ];
 
-  # required for github-desktop auth
+  programs.steam.enable = true; # enable steam
 
   fonts.packages = with pkgs; [
     noto-fonts
