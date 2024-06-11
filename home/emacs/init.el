@@ -22,7 +22,7 @@
         (setenv (car key-value) (cadr key-value))))))
 
 ;; use .env
-(load-env-vars "~/Desktop/nixos/hosts/default/.env")
+(load-env-vars "~/Desktop/nixos/home/emacs/.env")
 (setq local-directory (getenv "LOCAL_DIRECTORY"))
 (setq remote-directory (getenv "REMOTE_DIRECTORY"))
 
@@ -306,7 +306,7 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "GNU Emacs"
-    dashboard-startup-banner "~/Desktop/nixos/hosts/default/emacs-banner.txt"
+    dashboard-startup-banner "~/Desktop/nixos/home/emacs/-banner.txt"
     dashboard-center-content t
     dashboard-set-footer nil
     dashboard-footer-messages nil

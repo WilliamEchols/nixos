@@ -8,14 +8,11 @@
   imports =
     [
       # modules
-      ../../modules/hypr.nix
+      ../../modules/hyprland.nix
       ../../modules/bluetooth.nix
 
       # hardware configuration
       ./hardware-configuration.nix
-      
-      # home-manager
-      #inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -55,12 +52,6 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Enable hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
 
   services.greetd = {
     enable = true;
@@ -122,14 +113,6 @@
     #  thunderbird
     ];
   };
-
-  #home-manager = {
-  #  # also pass inputs to home-manager modules
-  #  extraSpecialArgs = { inherit inputs; };
-  #  users = {
-  #    "pokey" = import ./home.nix;
-  #  };
-  #};
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

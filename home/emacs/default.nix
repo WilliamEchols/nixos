@@ -4,7 +4,7 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacs29-pgtk;
-    extraConfig = builtins.readFile ./emacs-config.el;
+    extraConfig = builtins.readFile ./init.el;
     extraPackages = epkgs: with epkgs; [
       org
       org-roam

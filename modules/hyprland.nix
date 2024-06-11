@@ -1,4 +1,3 @@
-
 {
   # Enable hyprland
   programs.hyprland = {

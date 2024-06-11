@@ -2,7 +2,13 @@
 
 {
   imports = [
-    ./imports.nix
+    ./hyprland
+    ./emacs
+
+    ./waybar.nix
+    ./bash.nix
+    ./kitty.nix
+    ./lf.nix
   ];
 
   home.username = "pokey";
@@ -10,9 +16,7 @@
 
   home.stateVersion = "23.11";
 
-  # git is managed by nix-env to allow for install script
-  #programs.git.enable = true;
-
+  # user home packages
   home.packages = with pkgs; [
     swww
     networkmanagerapplet
@@ -25,9 +29,6 @@
 
   # external application configurations
   home.file = {
-    # load hyprland config from separate file
-    ".config/hypr/hyprland.conf".source = ./hyprland.conf;
-
     # set system color theme to dark mode
     ".config/gtk-3.0/settings.ini".text = ''
       [Settings]

@@ -22,7 +22,8 @@
           home-manager.useUserPackages = true;
 
           home-manager.extraSpecialArgs = inputs;
-          home-manager.users.pokey = import ./hosts/default/home.nix;
+          # home-manager.users.pokey = import ./hosts/default/home.nix;
+          home-manager.users.pokey = import ./home;
         }
 
       ];
