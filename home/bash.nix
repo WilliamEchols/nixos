@@ -15,9 +15,9 @@ in
     enableCompletion = true;
 
     shellAliases = {
-      nixit = "sudo nixos-rebuild switch --flake ~/Desktop/nixos/#default";
-      nixtest = "sudo nixos-rebuild test --flake ~/Desktop/nixos/#default";
-      cdnix = "cd ~/Desktop/nixos/hosts/default";
+      nixit-e = "sudo nixos-rebuild switch --flake ~/Desktop/nixos/#epsilon";
+      nixtest-e = "sudo nixos-rebuild test --flake ~/Desktop/nixos/#epsilon";
+      cdnix = "cd ~/Desktop/nixos/";
     };
   };
 }

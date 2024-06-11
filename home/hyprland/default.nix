@@ -2,6 +2,6 @@
 {
   # load hyprland config from separate file
   home.file = {
-    ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+    ".config/hypr/hyprland.conf".source = ./hyprland.conf;
   };
 }

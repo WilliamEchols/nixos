@@ -9,24 +9,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./hosts/default/configuration.nix
+    nixosConfigurations = {
+        
+      # epsilon (laptop)
+      epsilon = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/epsilon/configuration.nix
 
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-          home-manager.extraSpecialArgs = inputs;
-          # home-manager.users.pokey = import ./hosts/default/home.nix;
-          home-manager.users.pokey = import ./home;
-        }
+            home-manager.extraSpecialArgs = inputs;
+            home-manager.users.pokey = import ./home;
+          }
+        ];
+      };
 
-      ];
+
     };
   };
 }
