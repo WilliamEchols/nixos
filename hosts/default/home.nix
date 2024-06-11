@@ -10,7 +10,8 @@
 
   home.stateVersion = "23.11";
 
-  programs.git.enable = true;
+  # git is managed by nix-env to allow for install script
+  #programs.git.enable = true;
 
   home.packages = with pkgs; [
     swww

@@ -6,10 +6,16 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # modules
+      ../../modules/hypr.nix
+      ../../modules/bluetooth.nix
+
+      # hardware configuration
       ./hardware-configuration.nix
-      ./bluetooth.nix
-      inputs.home-manager.nixosModules.default
+      
+      # home-manager
+      #inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -117,13 +123,13 @@
     ];
   };
 
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "pokey" = import ./home.nix;
-    };
-  };
+  #home-manager = {
+  #  # also pass inputs to home-manager modules
+  #  extraSpecialArgs = { inherit inputs; };
+  #  users = {
+  #    "pokey" = import ./home.nix;
+  #  };
+  #};
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

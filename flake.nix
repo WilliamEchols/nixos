@@ -15,7 +15,16 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/default/configuration.nix
-        inputs.home-manager.nixosModules.default
+
+        inputs.home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          home-manager.extraSpecialArgs = inputs;
+          home-manager.users.pokey = import ./hosts/default/home.nix;
+        }
+
       ];
     };
   };
