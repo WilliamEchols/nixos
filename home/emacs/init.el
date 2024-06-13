@@ -306,7 +306,7 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title "GNU Emacs"
-    dashboard-startup-banner "~/Desktop/nixos/home/emacs/-banner.txt"
+    dashboard-startup-banner "~/Desktop/nixos/home/emacs/banner.txt"
     dashboard-center-content t
     dashboard-set-footer nil
     dashboard-footer-messages nil

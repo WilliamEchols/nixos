@@ -4,21 +4,22 @@ set -e
 
 REPO_URL="git@github.com:WilliamEchols/nixos.git"
 LOCAL_DIR="$HOME/Desktop/nixos"
-HOST_NAME="epsilon"
+HOST_NAME="lambda"
 
 echo "Starting NixOS configuration setup..."
 
 # Install git
 nix-env -iA nixos.git
 
-if [ ! -d "$LOCAL_DIR" ]; then
-    echo "Cloning the NixOS flake repository..."
-    git clone $REPO_URL $LOCAL_DIR
-else
-    echo "Repository directory already exists. Pulling latest changes..."
-    cd $LOCAL_DIR
-    git pull
-fi
+# temp comment
+#if [ ! -d "$LOCAL_DIR" ]; then
+#    echo "Cloning the NixOS flake repository..."
+#    git clone $REPO_URL $LOCAL_DIR
+#else
+#    echo "Repository directory already exists. Pulling latest changes..."
+#    cd $LOCAL_DIR
+#    git pull
+#fi
 
 cd $LOCALIZE_DIR
 

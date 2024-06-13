@@ -29,6 +29,23 @@
         ];
       };
 
+      # lambda (desktop)
+      lambda = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/lambda/configuration.nix
+
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.extraSpecialArgs = inputs;
+            home-manager.users.pokey = import ./home;
+          }
+        ];
+      };
+
 
     };
   };
