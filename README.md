@@ -8,37 +8,47 @@ NixOS system and applications configuration
 
 Follow `https://nixos.org/manual/nixos/stable/#ch-installation`.
 
-2. Create ssh key and add to Github account.
+2. Set system git user information
+
+```bash
+git config --global user.name "USERNAME"
+```
+
+```bash
+git config --global user.email "EXAMPLE@MAIL.com"
+```
+
+3. Create ssh key and add to Github account.
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
 ```bash
-cat ~/.ssh/id_ed25519.pub | wl-copy
+cat ~/.ssh/id_rsa.pub | wl-copy
 ```
 
 Save to `Github > Settings > SSH and GPG keys`
 
-3. Clone the repo
+4. Clone the repo
 
 ```bash
 git clone https://github.com/williamechols/nixos
 ```
 
-4. Navigate into the cloned directory
+5. Navigate into the cloned directory
 
 ```bash
 cd nixos
 ```
 
-5. Run the automatic setup script
+6. Run the automatic setup script
 
 ```bash
 ./setup_nixos
 ```
 
-6. Write `~/Desktop/nixos/hosts/default.env` for emacs.
+7. Write `~/Desktop/nixos/home/emacs/.env` for emacs.
 
 Currently, emacs expects the following environment variables:
  - `LOCAL_DIRECTORY` contains the path to the org file directory. (i.e., `~/Desktop/orgfiles`)
@@ -47,41 +57,61 @@ Currently, emacs expects the following environment variables:
  - `ERC_NAME` contains the full name for ERC
  - `ERC_PASS` contains the password ERC SASL
 
-7. Sync emacs org files to `LOCAL_DIRECTORY`.
+8. Sync emacs org files to `LOCAL_DIRECTORY`.
 
-8. Add ssh key to remote server for emacs TRAMP (if configured).
+9. Add ssh key to remote server for emacs TRAMP (if configured).
 
 # Configuration
 
-Nix flake files are located at `~/Desktop/nixos` and system-specific files are located at `~/Desktop/nixos/hosts/default`.
+Nix flake files are located at `~/Desktop/nixos` and system-specific files are located at `~/Desktop/nixos/hosts/HOSTNAME`.
 
-After making modifications, you can test the config with `nixtest` (run configuration but don't save to boot menu) or use the config with `nixit` (run conguration and save to boot menu).
+After making modifications, you can test the config with `nixtest-l` (lambda desktop) or `nixtest-e` (epsilon laptop) (run configuration but don't save to boot menu) or use the config with `nixit-l` or `nixit-e` (run conguration and save to boot menu).
 
-# Recommended file tree from `~/Desktop/`
+# Configuration file tree (located in `~/Desktop/`)
 
 ```
-.
-├── files
-│   ├── dev
-│   └── test.txt
-├── nixos
-│   ├── flake.lock
-│   ├── flake.nix
-│   ├── hosts
-│   ├── README.md
-│   └── setup_nixos.sh
-├── orgfiles
-└── orgfiles-repo
+nixos/
+├── flake.lock
+├── flake.nix
+├── home
+│   ├── bash.nix
+│   ├── default.nix
+│   ├── emacs
+│   │   ├── banner.txt
+│   │   ├── default.nix
+│   │   └── init.el
+│   ├── hyprland
+│   │   ├── default.nix
+│   │   ├── hyprland.conf
+│   │   └── hyprland_start.sh
+│   ├── kitty.nix
+│   ├── lf.nix
+│   ├── rofi
+│   │   └── rofi-config.rasi
+│   ├── wallpapers
+│   │   └── default.png
+│   └── waybar.nix
+├── hosts
+│   ├── epsilon
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
+│   └── lambda
+│       ├── configuration.nix
+│       └── hardware-configuration.nix
+├── modules
+│   ├── bluetooth.nix
+│   ├── hyprland.nix
+│   └── nvidia.nix
+├── README.md
+└── setup_nixos.sh
 ```
-
-In this setup, `files` contains misc/regular files, `nixos` contains this github repo, and `orgfiles` contains the expected path for emacs org files.
 
 # Emacs
 
-Uses elisp to configure `emacs-config.el`, loaded into `emacs.nix`. Also uses `emacs-banner.txt` as ASCII dashboard art. Before updating the NixOS config, eval-buffer can be used to test an updated config.
+Before updating the NixOS config, eval-buffer can be used to test an updated config.
 
 # Hyprland (display manager)
 
 Hyprland is used as a tiling window manager. Ensure your monitor is defined in `hyprland.conf`, including relative position as well as scaling for best results.
 
-After running `nixtest`/`nixit`, hyprland can be reloaded using `hyprctl reload`.
+After compiling the NixOS changes, hyprland can be reloaded using `hyprctl reload`.

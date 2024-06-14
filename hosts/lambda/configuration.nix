@@ -147,9 +147,17 @@
     obsidian # canvas mode diagrams
     zed-editor # fancy modern IDE
     librewolf # privacy-respecting browser based on firefox
+
+    # software development
+    nodejs
+
+    zathura # pdf viewer
+    # openjdk # java
+    # prismlauncher # free and open source minecraft launcher
+    # bottles # wine prefixer with gaming suppot
   ];
 
-  programs.steam.enable = true; # enable steam
+  programs.steam.enable = true; # enable steam and other settings
 
   fonts.packages = with pkgs; [
     noto-fonts
