@@ -236,7 +236,8 @@
            :password erc-sasl-password
            :full-name erc-user-full-name))
 
-;; TODO - programming language support (highlighting, etc)
+;; TODO - programming language support (highlighting, etc) (ideally a unified package for multiple languages)
+;; Do we need an LSP? elgot?
 
 ;; Keybindings with general.el and which-key
 (use-package general

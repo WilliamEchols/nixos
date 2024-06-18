@@ -11,15 +11,14 @@ echo "Starting NixOS configuration setup..."
 # Install git
 nix-env -iA nixos.git
 
-# temp comment
-#if [ ! -d "$LOCAL_DIR" ]; then
-#    echo "Cloning the NixOS flake repository..."
-#    git clone $REPO_URL $LOCAL_DIR
-#else
-#    echo "Repository directory already exists. Pulling latest changes..."
-#    cd $LOCAL_DIR
-#    git pull
-#fi
+if [ ! -d "$LOCAL_DIR" ]; then
+    echo "Cloning the NixOS flake repository..."
+    git clone $REPO_URL $LOCAL_DIR
+else
+    echo "Repository directory already exists. Pulling latest changes..."
+    cd $LOCAL_DIR
+    git pull
+fi
 
 cd $LOCALIZE_DIR
 
