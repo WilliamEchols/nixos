@@ -178,6 +178,8 @@
       ("https://rss.arxiv.org/rss/q-fin" arxiv q-fin)
       ("https://stephango.com/feed.xml" kepano)
       ("https://planet.emacslife.com/atom.xml" emacs)
+      ("https://stallman.org/rss/rss.xml" stallman)
+      ("https://lukesmith.xyz/index.xml" smith)
      )))
 
 (defun elfeed-update-and-show ()
