@@ -129,6 +129,8 @@
     playerctl # terminal player control
     pamixer # terminal volume control
     # bottles # wine prefixer with gaming suppot
+    monero-cli # testing cpu mining
+    p2pool     # monero pool
 
     # notes
     obsidian # canvas mode diagrams
@@ -163,6 +165,7 @@
 
     # games
     prismlauncher # free and open source minecraft launcher
+    osu-lazer # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam and other settings
