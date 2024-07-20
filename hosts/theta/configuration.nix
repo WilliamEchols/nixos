@@ -8,9 +8,8 @@
   imports =
     [
       # modules
-      ../../modules/nvidia.nix # nvidia gpu support
-      ../../modules/hyprland.nix
-      ../../modules/bluetooth.nix
+      # ../../modules/hyprland.nix
+      # ../../modules/bluetooth.nix
 
       # hardware configuration
       ./hardware-configuration.nix
@@ -20,7 +19,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-theta"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Allow experimental features (incl. flakes)
@@ -51,30 +50,8 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system. (TODO: see if this is necessary for theta server)
   services.xserver.enable = true;
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet";
-        user = "pokey";
-      };
-    };
-  };
-
-    # https://www.reddit.com/r/NixOS/comments/u0cdpi/tuigreet_with_xmonad_how/
-    systemd.services.greetd.serviceConfig = {
-      Type = "idle";
-      StandardInput = "tty";
-      StandardOutput = "tty";
-      StandardError = "journal"; # Without this errors will spam on screen
-      # Without these bootlogs will spam on screen
-      TTYReset = true;
-      TTYVHangup = true;
-      TTYVTDisallocate = true;
-    };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -83,24 +60,7 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
+  # services.printing.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -121,14 +81,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # system
-    kitty # terminal
-    wev # wayland event viewer (dev package to help with hyprland config)
-    brightnessctl # terminal brightness control
-    pavucontrol # audio/sound gui
-    playerctl # terminal player control
-    pamixer # terminal volume control
-
     # notes
     ispell # emacs flyspell-mode for spell checking
     imagemagick # emacs image-dired
@@ -145,26 +97,13 @@
     tree # terminal command
     neofetch # terminal command
 
-    # applications
-    librewolf # privacy-respecting browser based on firefox
-    tor-browser # tor
-    spotify
-
     # software development
-    github-desktop
-    zed-editor # fancy modern IDE
     go # golang
     go-ethereum
     nodejs
     python3 # used as 'python' or 'python3' in terminal
     openjdk # java
-
-    # games
-    prismlauncher # free and open source minecraft launcher
-    osu-lazer # rhythm game
   ];
-
-  programs.steam.enable = true; # enable steam and other settings
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -193,7 +132,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

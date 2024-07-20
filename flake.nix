@@ -46,6 +46,22 @@
         ];
       };
 
+      # theta (homelab server)
+      theta = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/theta/configuration.nix
+
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.extraSpecialArgs = inputs;
+            home-manager.users.pokey = import ./home/default-theta.nix;
+          }
+        ];
+      };
 
     };
   };

@@ -9,7 +9,8 @@
       org
       org-roam
       org-roam-ui
-      org-bullets
+      org-modern
+      gnu-elpa-keyring-update
       auctex
     ] ++ (with epkgs.melpaStablePackages; [
       ivy
@@ -25,6 +26,10 @@
       elfeed
       neotree
       magit
+      markdown-mode
+      go-mode
+      lsp-mode
+      lsp-ui
     ]);
   };
 }

@@ -120,32 +120,46 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    zip
-    vim # vim for lightweight text editing
+    # system
     kitty # terminal
-    neofetch # terminal command
-    tree # terminal command
-    fzf # termnal fuzzy finder
-    gtop # terminal monitoring dashboard
-    pamixer # terminal volume control
-    playerctl # terminal player control
-    pavucontrol # audio/sound gui
-    brightnessctl # terminal brightness control
     wev # wayland event viewer (dev package to help with hyprland config)
-    tor-browser # tor
+    brightnessctl # terminal brightness control
+    pavucontrol # audio/sound gui
+    playerctl # terminal player control
+    pamixer # terminal volume control
+
+    # notes
+    ispell # emacs flyspell-mode for spell checking
+    imagemagick # emacs image-dired
     texliveFull # latex compiler
-    spotify
-    python3 # used as 'python' or 'python3' in terminal
-    unzip # uncompress .zip files
+    zathura # pdf viewer
+
+    # command line tools
+    vim # vim for lightweight text editing
     ripgrep # terminal command, also used for emacs
+    zip
+    unzip # uncompress .zip files
+    gtop # terminal monitoring dashboard
+    fzf # termnal fuzzy finder
+    tree # terminal command
+    neofetch # terminal command
+
+    # applications
+    librewolf # privacy-respecting browser based on firefox
+    tor-browser # tor
+    spotify
+
+    # software development
+    github-desktop
+    zed-editor # fancy modern IDE
     go # golang
     go-ethereum
-    github-desktop
-    imagemagick # emacs image-dired
-    ispell # emacs flyspell-mode for spell checking
-    obsidian # canvas mode diagrams
-    zed-editor # fancy modern IDE
-    librewolf # privacy-respecting browser based on firefox
+    nodejs
+    python3 # used as 'python' or 'python3' in terminal
+    openjdk # java
+
+    # games
+    osu-lazer # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam

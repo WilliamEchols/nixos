@@ -30,7 +30,7 @@ cat ~/.ssh/id_rsa.pub | wl-copy
 
 Save to `Github > Settings > SSH and GPG keys`
 
-4. Clone the repo
+4. Clone the repo (or just the setup script and skip to step 6)
 
 ```bash
 git clone https://github.com/williamechols/nixos
@@ -53,9 +53,7 @@ cd nixos
 Currently, emacs expects the following environment variables:
  - `LOCAL_DIRECTORY` contains the path to the org file directory. (i.e., `~/Desktop/orgfiles`)
  - `REMOTE_DIRECTORY` contains the TRAMP route to a remote file system. (i.e., `/ssh:USER@IP#PORT:~/`)
- - `ERC_NICK` contains the nickname to be used for the emacs IRC client
- - `ERC_NAME` contains the full name for ERC
- - `ERC_PASS` contains the password ERC SASL
+ - `GPG_KEY` contains the GnuPG Key ID used for org-crypt. (of format `****-****-****-****`)
 
 8. Sync emacs org files to `LOCAL_DIRECTORY`.
 
@@ -64,6 +62,11 @@ Currently, emacs expects the following environment variables:
 # Configuration
 
 Nix flake files are located at `~/Desktop/nixos` and system-specific files are located at `~/Desktop/nixos/hosts/HOSTNAME`.
+
+There are currently three system configurations intended for distinct computers. Each configuration has an associated `nixtest-*` and `nixit-*` command for quick iterations:
+- `epsilon`: intended for laptop use
+- `lambda`: intended for desktop with NVIDIA GPU support
+- `theta`: intended for headless server
 
 After making modifications, you can test the config with `nixtest-l` (lambda desktop) or `nixtest-e` (epsilon laptop) (run configuration but don't save to boot menu) or use the config with `nixit-l` or `nixit-e` (run conguration and save to boot menu).
 
@@ -114,4 +117,4 @@ Before updating the NixOS config, eval-buffer can be used to test an updated con
 
 Hyprland is used as a tiling window manager. Ensure your monitor is defined in `hyprland.conf`, including relative position as well as scaling for best results.
 
-After compiling the NixOS changes, hyprland can be reloaded using `hyprctl reload`.
+After compiling the NixOS changes, hyprland can be reloaded using `hyprctl reload` (this does not run the initial startup executable, but it will update most config settings). 
