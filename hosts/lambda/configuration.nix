@@ -161,7 +161,7 @@
 
     # games
     prismlauncher # free and open source minecraft launcher
-    osu-lazer # rhythm game
+    osu-lazer-bin # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam and other settings

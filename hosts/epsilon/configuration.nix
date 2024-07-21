@@ -159,7 +159,7 @@
     openjdk # java
 
     # games
-    osu-lazer # rhythm game
+    osu-lazer-bin # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam
