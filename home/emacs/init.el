@@ -151,7 +151,7 @@
 :config
 (setq org-startup-folded 'showall))
 
-(add-to-list 'org-modules 'org-habit t)
+; (add-to-list 'org-modules 'org-habit t)
 
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
