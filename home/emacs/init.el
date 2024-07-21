@@ -29,7 +29,7 @@
 (setq remote-directory (getenv "REMOTE_DIRECTORY"))
 (setq gpg-key (getenv "GPG_KEY")) ; GnuPG Key ID
 
-(setq my-org-roam-directory local-directory)
+(setq my-org-roam-directory local-directory) 
 (setq org-agenda-files (list (concat my-org-roam-directory "/agenda")))
 
 (add-hook 'text-mode-hook 'flyspell-mode) ; enable spell check by default
@@ -151,7 +151,7 @@
 :config
 (setq org-startup-folded 'showall))
 
-; (add-to-list 'org-modules 'org-habit t)
+;(add-to-list 'org-modules 'org-habit t)
 
 (use-package org-modern
   :hook (org-mode . org-modern-mode)
@@ -203,8 +203,12 @@
     :keymaps 'override
     :prefix "SPC"
 
-    ;; connect to remote computer
-    "c" '(connect-to-remote-computer :which-key "connect (TRAMP)")
+    ;; load files from remote computer
+    "c" '(connect-to-remote-computer :which-key "connect (enable: TRAMP)")
+
+    ;; pull/push orgfiles from remote computer
+    "r l" '(rsync-pull :which-key "rsync pull")
+    "r s" '(rsync-push :which-key "rsync push")
 
     ;; emacs
     "q" '(save-buffers-kill-emacs :which-key "quit emacs")
@@ -299,7 +303,19 @@
 
 (defun connect-to-remote-computer ()
   (interactive)
-  (find-file remote-directory))
+  ;(setq my-org-roam-directory remote-directory)
+  (find-file remote-directory)
+  )
+
+(defun rsync-pull ()
+  (interactive)
+  (term "~/Desktop/nixos/home/emacs/org-roam-pull.sh")
+  (message "org-roam directory pulled from server"))
+
+(defun rsync-push ()
+  (interactive)
+  (term "~/Desktop/nixos/home/emacs/org-roam-push.sh")
+  (message "org-roam directory pushed to server"))
 
 (use-package lsp-mode
   :hook ((c++-mode c-mode go-mode python-mode scheme-mode emacs-lisp-mode js-mode web-mode) . lsp-deferred)
