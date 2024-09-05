@@ -64,9 +64,9 @@ Currently, emacs expects the following environment variables:
 Nix flake files are located at `~/Desktop/nixos` and system-specific files are located at `~/Desktop/nixos/hosts/HOSTNAME`.
 
 There are currently three system configurations intended for distinct computers. Each configuration has an associated `nixtest-*` and `nixit-*` command for quick iterations:
-- `epsilon`: intended for laptop use
-- `lambda`: intended for desktop with NVIDIA GPU support
-- `theta`: intended for headless server
+- `epsilon`: laptop
+- `lambda`: desktop (NVIDIA GPU support)
+- `theta`: server (headless)
 
 After making modifications, you can test the config with `nixtest-l` (lambda desktop) or `nixtest-e` (epsilon laptop) (run configuration but don't save to boot menu) or use the config with `nixit-l` or `nixit-e` (run conguration and save to boot menu).
 
@@ -79,10 +79,13 @@ nixos/
 ├── home
 │   ├── bash.nix
 │   ├── default.nix
+│   ├── default-theta.nix
 │   ├── emacs
 │   │   ├── banner.txt
 │   │   ├── default.nix
-│   │   └── init.el
+│   │   ├── init.el
+│   │   ├── org-roam-pull.sh
+│   │   └── org-roam-push.sh
 │   ├── hyprland
 │   │   ├── default.nix
 │   │   ├── hyprland.conf
@@ -98,7 +101,10 @@ nixos/
 │   ├── epsilon
 │   │   ├── configuration.nix
 │   │   └── hardware-configuration.nix
-│   └── lambda
+│   ├── lambda
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
+│   └── theta
 │       ├── configuration.nix
 │       └── hardware-configuration.nix
 ├── modules

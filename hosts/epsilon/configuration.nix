@@ -33,7 +33,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  time.timeZone = "America/Los_Angeles";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -127,11 +127,15 @@
     pavucontrol # audio/sound gui
     playerctl # terminal player control
     pamixer # terminal volume control
+    gnupg # pgp
+    kleopatra # pgp gui
+    pinentry-tty
+    pinentry-emacs
 
     # notes
     ispell # emacs flyspell-mode for spell checking
     imagemagick # emacs image-dired
-    texliveFull # latex compiler
+    texliveFull # emacs latex compiler
     zathura # pdf viewer
 
     # command line tools
@@ -151,7 +155,7 @@
 
     # software development
     github-desktop
-    zed-editor # fancy modern IDE
+    # zed-editor # fancy modern IDE
     go # golang
     go-ethereum
     nodejs
@@ -183,10 +187,12 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

@@ -42,11 +42,13 @@
   (when (consp word)    
     (flyspell-do-correct 'save nil (car word) current-location (cadr word) (caddr word) current-location))))
 
+(fset 'yes-or-no-p 'y-or-n-p)
+
 (use-package doom-themes
 :config
 (setq doom-themes-enable-bold t
   doom-themes-enable-italic t)
-(load-theme 'doom-monokai-machine t))
+(load-theme 'doom-spacegrey t))
 
 (use-package doom-modeline
 :ensure t
@@ -64,7 +66,7 @@
   doom-modeline-major-mode-color-icon t))
 
 (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode t)
+(global-display-line-numbers-mode nil)
 (setq org-startup-indented t)
 (global-visual-line-mode 1)
 (scroll-bar-mode -1)
@@ -72,6 +74,7 @@
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (set-fringe-mode 10)
+(setq large-file-warning-threshold nil)
 
 (use-package ivy
   :diminish
@@ -97,6 +100,8 @@
   (setq org-latex-create-formula-image-program 'dvisvgm) ;; sharper
   )
 (add-hook 'org-mode-hook 'org-fragtog-mode)
+
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.4))
 
 (use-package writeroom-mode
   :defer t)
@@ -251,6 +256,7 @@
     ;; toggles
     "t w" '(writeroom-mode :which-key "writeroom-mode")
     "t a" '(my-arrange :which-key "arrange horizontally")
+    "t f" '(toggle-frame-fullscreen :which-key "toggle fullscreen")
 
     ;; roam
     "n f" '(org-roam-node-find :which-key "roam find")
@@ -350,7 +356,7 @@
     dashboard-items nil
     initial-buffer-choice (lambda () (get-buffer "*dashboard*"))))
 
-(add-hook 'dashboard-mode-hook 'disable-line-numbers)
+;(add-hook 'dashboard-mode-hook 'disable-line-numbers)
 
 (use-package org-super-agenda
   :ensure t
@@ -396,6 +402,21 @@
 			   ))))))
        ))
   (org-super-agenda-mode))
+
+(defun my/org-agenda-format-roam-title()
+  "Return `#+TITLE` in place of file name, if possible"
+  (if (and (featurep 'org-roam) (org-roam-file-p))
+    (let ((title (org-roam-node-title (org-roam-node-at-point))))
+    (if title
+      title
+    (file-name-base (buffer-file-name))))
+  (file-name-base (buffer-file-name))))
+
+(setq org-agenda-prefix-format
+  '((agenda . " %i %-12:c%?-12t% s")
+    (todo . "%i %-12(my/org-agenda-format-roam-title) ")
+    (tags . "%i %-12(my/org-agenda-format-roam-title) ")
+    (search . "%i %-12(my/org-agenda-format-roam-title) ")))
 
 (general-define-key
   :states '(normal motion visual)
@@ -453,3 +474,13 @@
                  (org-present-read-write)
                  ))
      ))
+
+(add-to-list 'load-path "~/Desktop/nixos/home/emacs/lisp/")
+(load "ready-player.el")
+;(require 'ready-player)
+
+;; ready-player config
+;(use-package ready-player
+;  :ensure nil
+;  :config
+;  (ready-player-mode +1))
