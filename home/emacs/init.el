@@ -103,6 +103,13 @@
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.4))
 
+(defun my/org-export-to-pdf-and-open()
+  "Export current org buffer to a PDF and open with zathura"
+  (interactive)
+  (let ((output-file (org-latex-export-to-pdf)))
+    (when output-file
+      (start-process "zathura" "*zathura*" "zathura" output-file))))
+
 (use-package writeroom-mode
   :defer t)
 
@@ -242,8 +249,9 @@
     "p" '(org-decrypt-entry :which-key "PGP decrypt")
 
     ;; latex
-    "l p" '(org-latex-preview :which-key "preview")
-    "l e" '(org-latex-export-to-pdf :which-key "export")
+    "l p" '(org-latex-preview :which-key "latex preview")
+    "l e" '(org-latex-export-to-pdf :which-key "latex export")
+    "l o" '(my/org-export-to-pdf-and-open :which-key "latex open")
 
     ;; tables
     "t -" '(org-table-insert-hline :which-key "horizontal line")
@@ -257,6 +265,7 @@
     "t w" '(writeroom-mode :which-key "writeroom-mode")
     "t a" '(my-arrange :which-key "arrange horizontally")
     "t f" '(toggle-frame-fullscreen :which-key "toggle fullscreen")
+    "t p" '(ready-player-mode :which-key "toggle player")
 
     ;; roam
     "n f" '(org-roam-node-find :which-key "roam find")
@@ -364,8 +373,8 @@
   (setq org-agenda-custom-commands
     '(("n" "Next View"
         ((agenda "" ((org-agenda-span 'day)
-		      (org-super-agenda-groups
-			'((:name "Schedule"
+                      (org-super-agenda-groups
+                        '((:name "Schedule"
                             :time-grid t
                             :todo "TODAY"
                             :scheduled today
@@ -380,43 +389,46 @@
                            (:name "Overdue"
                              :deadline past
                              :order 7)
+                            (:discard (:anything t)) 
                            ))))
           (todo "" ((org-agenda-overriding-header "")
-		     (org-super-agenda-groups
-		       '((:name "Inbox"
-			   :order 0
-			   )
-			  (:discard (:todo "TODO"))
-			  (:auto-category t
-			    :order 9)
-			  ))))))
+                     (org-super-agenda-groups
+                       '((:name "Inbox"
+                           :order 0
+                           )
+                          (:discard (:todo "TODO"))
+                          (:auto-category t
+                            :order 9)
+                          ))))))
        ("t" "Todo View"
          (
            (todo "" ((org-agenda-overriding-header "")
-		      (org-super-agenda-groups
-			'((:name "Inbox"
-			    :order 0
-			    )
-			   (:auto-category t
-			     :order 9)
-			   ))))))
+                      (org-super-agenda-groups
+                        '((:name "Inbox"
+                            :order 0
+                            )
+                           (:auto-category t
+                             :order 9)
+                           ))))))
        ))
   (org-super-agenda-mode))
 
-(defun my/org-agenda-format-roam-title()
-  "Return `#+TITLE` in place of file name, if possible"
-  (if (and (featurep 'org-roam) (org-roam-file-p))
-    (let ((title (org-roam-node-title (org-roam-node-at-point))))
-    (if title
-      title
-    (file-name-base (buffer-file-name))))
-  (file-name-base (buffer-file-name))))
+(setq org-agenda-timegrid-use-ampm t)
 
-(setq org-agenda-prefix-format
-  '((agenda . " %i %-12:c%?-12t% s")
-    (todo . "%i %-12(my/org-agenda-format-roam-title) ")
-    (tags . "%i %-12(my/org-agenda-format-roam-title) ")
-    (search . "%i %-12(my/org-agenda-format-roam-title) ")))
+(defun refresh-org-agenda-buffers ()
+  "Refresh all org-agenda buffers."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (eq major-mode 'org-agenda-mode)
+        (org-agenda-redo)))))
+
+(defun run-refresh-org-agenda-at-next-minute ()
+  "Run the refresh-org-agenda-buffers function at the start of the next minute."
+  (let* ((current-seconds (string-to-number (format-time-string "%S")))
+       (seconds-to-next-minute (- 60 current-seconds)))
+    (run-at-time seconds-to-next-minute 60 'refresh-org-agenda-buffers)))
+
+(run-refresh-org-agenda-at-next-minute)
 
 (general-define-key
   :states '(normal motion visual)
@@ -477,10 +489,9 @@
 
 (add-to-list 'load-path "~/Desktop/nixos/home/emacs/lisp/")
 (load "ready-player.el")
-;(require 'ready-player)
 
 ;; ready-player config
-;(use-package ready-player
-;  :ensure nil
-;  :config
-;  (ready-player-mode +1))
+(use-package ready-player
+  :ensure nil
+  :config
+  (ready-player-mode +1))

@@ -136,6 +136,9 @@
     ispell # emacs flyspell-mode for spell checking
     imagemagick # emacs image-dired
     texliveFull # emacs latex compiler
+    mpv # ready-player for emacs
+    ffmpeg # ready-player ffprobe
+    ffmpegthumbnailer # ready-player thumbnails
     zathura # pdf viewer
 
     # command line tools
