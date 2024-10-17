@@ -101,7 +101,8 @@
   )
 (add-hook 'org-mode-hook 'org-fragtog-mode)
 
-;(setq org-format-latex-options (plist-put org-format-latex-options :scale 0.4))
+(require 'ox-latex)
+(plist-put org-format-latex-options :scale 0.4)
 
 (defun my-org-export-to-pdf-and-open()
   "Export current org buffer to a PDF and open with zathura"

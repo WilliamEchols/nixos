@@ -1,0 +1,5 @@
+# key: theorem
+# --
+#+BEGIN_theorem
+$1
+#+END_theorem

@@ -1,0 +1,5 @@
+# key: example
+# --
+#+BEGIN_example
+$1
+#+END_example

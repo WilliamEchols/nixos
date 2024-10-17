@@ -1,0 +1,5 @@
+# key: definition
+# --
+#+BEGIN_definition
+$1
+#+END_definition

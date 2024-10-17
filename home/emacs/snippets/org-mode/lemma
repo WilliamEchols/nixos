@@ -1,0 +1,5 @@
+# key: lemma
+# --
+#+BEGIN_lemma
+$1
+#+END_lemma
