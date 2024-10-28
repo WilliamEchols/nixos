@@ -9,6 +9,7 @@
     [
       # modules
       ../../modules/hyprland.nix
+      ../../modules/dwm.nix # alternative x11-supported window manager
       ../../modules/bluetooth.nix
 
       # hardware configuration
@@ -52,7 +53,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
+  
   services.greetd = {
     enable = true;
     settings = {
@@ -132,6 +133,10 @@
     pinentry-tty
     pinentry-emacs
 
+    # dwm (testing)
+    xorg.xinit
+    xorg.xsetroot
+
     # notes
     ispell # emacs flyspell-mode for spell checking
     imagemagick # emacs image-dired
@@ -155,6 +160,7 @@
     librewolf # privacy-respecting browser based on firefox
     tor-browser # tor
     spotify
+    obsidian
 
     # software development
     github-desktop
@@ -164,9 +170,6 @@
     nodejs
     python3 # used as 'python' or 'python3' in terminal
     openjdk # java
-
-    # games
-    osu-lazer-bin # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam

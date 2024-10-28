@@ -271,10 +271,15 @@
 
     ;; toggles
     "t w" '(writeroom-mode :which-key "writeroom-mode")
-    "t a" '(my-arrange :which-key "arrange horizontally")
     "t f" '(toggle-frame-fullscreen :which-key "toggle fullscreen")
     "t p" '(ready-player-mode :which-key "toggle player")
     "t i" '(org-toggle-inline-images :which-key "toggle inline images")
+
+    ;; window
+    "w a" '(my-arrange :which-key "arrange horizontally")
+    "w o" '(other-window :which-key "other window")
+    "w r" '(split-window-right :which-key "split right")
+    "w b" '(split-window-below :which-key "split below")
 
     ;; roam
     "n f" '(org-roam-node-find :which-key "roam find")
@@ -287,6 +292,7 @@
     "n d y" '(org-roam-dailies-goto-yesterday :which-key "goto yesterday")
     "n d t" '(org-roam-dailies-goto-tomorrow :which-key "goto tomorrow")
     "n d d" '(org-roam-dailies-goto-date :which-key "goto date")
+    "n u" '(org-roam-ui-open :which-key "org-roam ui")
   ))
 
 (use-package elfeed
