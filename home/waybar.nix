@@ -198,8 +198,8 @@
         "battery" = {
           "interval" = 10;
           "states" = {
-            "warning" = 20;
-            "critical" = 10;
+            "warning" = 5;
+            "critical" = 2;
           };
           "format" = "{icon} {capacity}%";
           "format-icons" = [

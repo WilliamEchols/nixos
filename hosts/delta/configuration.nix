@@ -132,6 +132,10 @@
     kleopatra # pgp gui
     pinentry-tty
     pinentry-emacs
+    syncthing
+    id3v2 # editing mp3 tags
+    kid3 # gui audio tag editor
+    qbittorrent
 
     # dwm (testing)
     xorg.xinit
@@ -155,6 +159,7 @@
     fzf # termnal fuzzy finder
     tree # terminal command
     neofetch # terminal command
+    exfatprogs
 
     # applications
     librewolf # privacy-respecting browser based on firefox
@@ -163,6 +168,7 @@
     obsidian
 
     # software development
+    neovim
     github-desktop
     # zed-editor # fancy modern IDE
     go # golang
