@@ -136,6 +136,8 @@
     id3v2 # editing mp3 tags
     kid3 # gui audio tag editor
     qbittorrent
+    gcc
+    mesa
 
     # dwm (testing)
     xorg.xinit
@@ -166,6 +168,7 @@
     tor-browser # tor
     spotify
     obsidian
+    lmms # music production
 
     # software development
     neovim

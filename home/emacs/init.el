@@ -1278,7 +1278,7 @@ This follows the UX design of Visual Studio Code."
    "P g" '(projectile-ripgrep :which-key "grep (projectile)")
 
    ;; git/magit
-   "g" '(magit-status :which-key "magit status")
+   ; "g" '(magit-status :which-key "magit status")
 
    ;; buffers
    "b" '(switch-to-buffer :which-key "switch buffer")
