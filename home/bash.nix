@@ -15,6 +15,10 @@ in
     enableCompletion = true;
 
     shellAliases = {
+      # delta flake
+      nixit-d = "sudo nixos-rebuild switch --flake ~/Desktop/nixos/#delta";
+      nixtest-d = "sudo nixos-rebuild test --flake ~/Desktop/nixos/#delta";
+
       # epsilon flake
       nixit-e = "sudo nixos-rebuild switch --flake ~/Desktop/nixos/#epsilon";
       nixtest-e = "sudo nixos-rebuild test --flake ~/Desktop/nixos/#epsilon";

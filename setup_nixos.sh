@@ -4,7 +4,7 @@ set -e
 
 REPO_URL="git@github.com:WilliamEchols/nixos.git"
 LOCAL_DIR="$HOME/Desktop/nixos"
-HOST_NAME="theta"
+HOST_NAME="delta"
 
 echo "Starting NixOS configuration setup..."
 

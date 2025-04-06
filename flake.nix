@@ -11,7 +11,24 @@
   };
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-        
+
+      # delta (framework)
+      delta = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/delta/configuration.nix
+
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.extraSpecialArgs = inputs;
+            home-manager.users.pokey = import ./home;
+          }
+        ];
+      };
+
       # epsilon (laptop)
       epsilon = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
@@ -28,7 +45,7 @@
           }
         ];
       };
-
+        
       # lambda (desktop)
       lambda = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};

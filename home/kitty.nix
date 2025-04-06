@@ -4,7 +4,7 @@
   programs.kitty = {
     enable = true;
     package = pkgs.kitty;
-    theme = "Tokyo Night Storm";
+    theme = "Gruvbox Dark";
     font.name = "JetBrains Mono";
     font.size = 12;
     settings = {
@@ -12,7 +12,7 @@
       wheel_scroll_min_lines = 1;
       window_padding_width = 6;
       confirm_os_window_close = 0;
-      background_opacity = "0.75";
+      background_opacity = "0.9";
     };
     extraConfig = ''
       tab_bar_style fade
