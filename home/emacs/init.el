@@ -86,7 +86,7 @@
 (use-package company
   :init (global-company-mode)
   :config
-  (setq company-idle-delay 0.2
+  (setq company-idle-delay 0.5
     company-minimum-prefix-length 1))
 
 (use-package company-math
@@ -103,12 +103,19 @@
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.4))
 
-(defun my/org-export-to-pdf-and-open()
+(defun my-org-export-to-pdf-and-open()
   "Export current org buffer to a PDF and open with zathura"
   (interactive)
   (let ((output-file (org-latex-export-to-pdf)))
     (when output-file
       (start-process "zathura" "*zathura*" "zathura" output-file))))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (setq yas-snippet-dirs
+    '("~/Desktop/nixos/home/emacs/snippets"))
+  (yas-global-mode 1))
 
 (use-package writeroom-mode
   :defer t)
@@ -192,12 +199,12 @@
     '(
       ;; normal notes
       ("d" "default" plain "%?" :target
-      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
+      (file+head "${slug}.org" "#+title: ${title}")
       :unnarrowed t)
 
       ;; agenda notes
       ("a" "agenda" plain "%?" :target
-      (file+head "agenda/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}")
+      (file+head "agenda/${slug}.org" "#+title: ${title}")
       :unnarrowed t)))
 
 (use-package org-roam-ui
@@ -229,7 +236,7 @@
     "f s" '(save-buffer :which-key "save buffer")
     "f o" '(org-open-at-point :which-key "open point")
     "f f" '(find-file :which-key "find file")
-    "r u" '(elfeed-update-and-show :which-key "update and show elfeed")
+    "r u" '(my-elfeed-update-and-show :which-key "update and show elfeed")
 
     ;; magit
     "m s" '(magit-status :which-key "magit status")
@@ -251,7 +258,7 @@
     ;; latex
     "l p" '(org-latex-preview :which-key "latex preview")
     "l e" '(org-latex-export-to-pdf :which-key "latex export")
-    "l o" '(my/org-export-to-pdf-and-open :which-key "latex open")
+    "l o" '(my-org-export-to-pdf-and-open :which-key "latex open")
 
     ;; tables
     "t -" '(org-table-insert-hline :which-key "horizontal line")
@@ -293,7 +300,7 @@
     ("https://lukesmith.xyz/index.xml" smith)
    )))
 
-(defun elfeed-update-and-show ()
+(defun my-elfeed-update-and-show ()
 "Update elfeed and open the elfeed buffer."
 (interactive)
 (elfeed-update)
@@ -430,6 +437,10 @@
 
 (run-refresh-org-agenda-at-next-minute)
 
+(use-package org-drill
+:config
+)
+
 (general-define-key
   :states '(normal motion visual)
   :keymaps 'image-dired-thumbnail-mode-map
@@ -488,6 +499,7 @@
      ))
 
 (add-to-list 'load-path "~/Desktop/nixos/home/emacs/lisp/")
+
 (load "ready-player.el")
 
 ;; ready-player config
@@ -495,3 +507,6 @@
   :ensure nil
   :config
   (ready-player-mode +1))
+
+(load "pomodoro.el")
+(pomodoro-add-to-mode-line)

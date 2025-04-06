@@ -20,6 +20,7 @@
       general
       org-super-agenda
       which-key
+      yasnippet
       company
       company-math
       doom-themes
@@ -32,6 +33,7 @@
       lsp-mode
       lsp-ui
       visual-fill-column
+      org-drill
     ]);
   };
 }
