@@ -152,8 +152,9 @@
     neofetch # terminal command
 
     # applications
-    librewolf # privacy-respecting browser based on firefox
+    librewolf # privacy browser based on firefox
     tor-browser # tor
+    tetrio-desktop
     spotify
 
     # software development
@@ -166,7 +167,7 @@
     openjdk # java
 
     # games
-    osu-lazer-bin # rhythm game
+    # osu-lazer-bin # rhythm game
   ];
 
   programs.steam.enable = true; # enable steam

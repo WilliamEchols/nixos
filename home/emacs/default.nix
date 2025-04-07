@@ -8,7 +8,6 @@
     extraPackages = epkgs: with epkgs; [
       org
       org-roam
-      org-roam-ui
       org-modern
       org-present
       gnu-elpa-keyring-update
@@ -34,6 +33,12 @@
       lsp-ui
       visual-fill-column
       org-drill
+      vertico
+      consult
+      orderless
+      evil-collection
+      color-theme-sanityinc-tomorrow
+      org-bullets
     ]);
   };
 }
