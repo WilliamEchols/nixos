@@ -39,6 +39,7 @@
       evil-collection
       color-theme-sanityinc-tomorrow
       org-bullets
+      org-fragtog
     ]);
   };
 }

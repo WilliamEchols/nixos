@@ -51,7 +51,7 @@
 (setq gpg-key (getenv "GPG_KEY")) ; GnuPG Key ID
 
 (setq my-org-roam-dir local-directory) 
-(setq my-org-agenda-dir (concat my-org-roam-directory "/agenda"))
+(setq my-org-agenda-dir (concat my-org-roam-dir "/agenda"))
 
 ;; Evil mode
 (use-package evil
